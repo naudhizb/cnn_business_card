@@ -1,0 +1,42 @@
+// Command Name     Byte 1 Byte 2 Byte 3 Byte 4 Byte 5 Byte 6 n-Bytes
+Write Enable 06H // *** 
+Write Disable 04H // *** 
+Volatile SR Write Enable 50H // *** 
+Read Status Register-1 05H // *** (S7-S0) (continuous) 
+Read Status Register-2 35H // *** (S15-S8) (continuous) 
+Read Status Register-3 15H // *** (S23-S16) (continuous) 
+Write Status Register-1 01H // *** S7-S0 
+Write Status Register-2 31H // *** S15-S8 
+Write Status Register-3 11H // *** S23-S16 
+Read Data 03H // *** A23-A16 A15-A8 A7-A0 (D7-D0) (Next byte) (continuous) 
+Fast Read 0BH // *** A23-A16 A15-A8 A7-A0 dummy (D7-D0) (continuous) 
+Dual Output Fast Read 3BH // *** A23-A16 A15-A8 A7-A0 dummy (D7-D0)(1) (continuous) 
+Dual I/O Fast Read BBH // *** A23-A8(2) A7-A0 M7-M0(2) (D7-D0)(1) (Nextbyte) (Next byte) (continuous) 
+Quad Output Fast Read 6BH // *** A23-A16 A15-A8 A7-A0 dummy (D7-D0)(3) (continuous) 
+Quad I/O Fast Read EBH // *** A23-A0  M7-M0(4) dummy(5) (D7-D0)(3) (Next byte) (Next byte) (continuous)
+Quad I/O Word Fast Read(7) E7H // *** A23-A0  M7-M0(4) dummy(6) (D7-D0)(3) (Next byte) (Next byte) (continuous)
+Page Program 02H // *** A23-A16 A15-A8 A7-A0 D7-D0 Next byte continuous 
+Quad Page Program 32H // *** A23-A16 A15-A8 A7-A0 D7-D0 Next byte continuous 
+Fast Page Program F2H // *** A23-A16 A15-A8 A7-A0 D7-D0 Next byte continuous 
+Sector Erase 20H // *** A23-A16 A15-A8 A7-A0 
+Block Erase(32K) 52H // *** A23-A16 A15-A8 A7-A0 
+Block Erase(64K) D8H // *** A23-A16 A15-A8 A7-A0 
+Chip Erase C7/60H 
+Enable Reset 66H // *** 
+Reset 99H // *** 
+Set Burst with Wrap 77H // *** dummy(9)  W7-W0 
+Program/Erase Suspend 75H // *** 
+Program/Erase Resume 7AH // *** 
+Release From Deep Power-Down, And Read Device ID ABH // *** dummy dummy dummy (DID7-  DID0) (continuous)
+Release From Deep Power-Down ABH // *** 
+Deep Power-Down B9H // *** 
+Manufacturer/ Device ID 90H // *** dummy dummy 00H // *** (MID7-  MID0) (DID7- DID0) (continuous)
+Manufacturer/ Device ID by Dual I/O 92H // *** A23-A8 A7-A0,  M7-M0 (MID7- MID0) (DID7- DID0) (continuous)
+Manufacturer/ Device ID by Quad I/O 94H // *** A23-A0,  M7-M0 dummy (10) (MID7- MID0) (DID7- DID0) (continuous)
+Read Identification 9FH // *** (MID7-  MID0) (JDID15- JDID8) (JDID7- JDID0) (continuous)
+Read Unique ID 4BH // *** 00H // *** 00H // *** 00H // *** dummy (UID7- UID0) (continuous)
+High Performance Mode A3H // *** dummy dummy dummy
+Read Serial Flash Discoverable Parameter 5AH // *** A23-A16 A15-A8 A7-A0 dummy (D7-D0) (continuous) 
+Erase Security Registers(8) 44H // *** A23-A16 A15-A8 A7-A0 
+Program Security Registers(8) 42H // *** A23-A16 A15-A8 A7-A0 D7-D0 D7-D0 continuous 
+Read Security Registers(8) 48H // *** A23-A16 A15-A8 A7-A0 dummy (D7-D0) (continuous) 

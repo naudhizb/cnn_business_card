@@ -14,7 +14,6 @@ int8_t read_button_matrix() {
     int8_t pressed = -1;
 	for(int i = 0; i < 5; i++)
 	{
-		uint8_t data = 0;
 		HAL_GPIO_WritePin(ROW_1_GPIO_Port, ROW_1_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(ROW_2_GPIO_Port, ROW_2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(ROW_3_GPIO_Port, ROW_3_Pin, GPIO_PIN_RESET);

@@ -105,7 +105,8 @@ void Error_Handler(void);
 #define B1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define FLASH_CS_GPIO_Port SPI1_CS_GPIO_Port
+#define FLASH_CS_Pin SPI1_CS_Pin
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

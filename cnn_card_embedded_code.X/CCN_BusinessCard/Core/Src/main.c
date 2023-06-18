@@ -18,14 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "fatfs.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
-#include <usbd_cdc_if.h>
 #include "led_matrix.h"
+#include "w25qxx.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,7 +68,7 @@ static void MX_TIM10_Init(void);
 /* USER CODE BEGIN 0 */
 
 int _write(int file, char *ptr, int len){
-    CDC_Transmit_FS((uint8_t *)ptr, len);
+//    CDC_Transmit_FS((uint8_t *)ptr, len);
     return (len);
 }
 
@@ -397,16 +396,32 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM5_Init();
   MX_TIM10_Init();
-  MX_FATFS_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 
   ledmatrix_turnoff();
-  HAL_Delay(3000);
-  printf("CNN Card Demo\r\n");
 
   ledmatrix_turnon();
   HAL_Delay(1000);
+
+//  HAL_Delay(5000);
+//
+//  W25qxx_Init();
+//  uint8_t rdata[8] = {0,};
+//  uint8_t wdata[8] = {11,2,3,4,5,6,7};
+//  W25qxx_ReadBytes(rdata, 0, 8);
+//  for(int i = 0; i < sizeof(rdata); i++)
+//  {
+//	  printf("%02X ", rdata[i]);
+//  } printf("\r\n");
+//  W25qxx_WriteByte(wdata, 1);
+//  W25qxx_ReadBytes(rdata, 0, 8);
+//    for(int i = 0; i < sizeof(rdata); i++)
+//    {
+//  	  printf("%02X ", rdata[i]);
+//    } printf("\r\n");
+
+
 
   main_entry();
 

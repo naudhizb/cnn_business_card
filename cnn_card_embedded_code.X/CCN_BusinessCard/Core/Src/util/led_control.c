@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "sleep.h"
 
+#include "../led_matrix.h"
 
 /* PWM_BITS-bit brightness values for each led*/
 uint8_t led_status[LED_STATUS_BYTES] = {0};
