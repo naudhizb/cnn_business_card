@@ -18,6 +18,7 @@ extern "C" {
 	void _delay_ms(uint32_t ms);
     void go_to_sleep();
     void reset_rtc_cnt();
+    int check_rtc_elapsed();
 
 
 #ifdef	__cplusplus

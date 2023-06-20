@@ -23,6 +23,7 @@
 
 /* USER CODE BEGIN INCLUDE */
 #include "w25qxx.h"
+
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -246,6 +247,8 @@ int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t bl
   UNUSED(blk_len);
   // RamDisk : memcpy(buf, &buffer[blk_addr*STORAGE_BLK_SIZ], blk_len*STORAGE_BLK_SIZ);
   // DEBUG_USB_PRINT("Read: %4d:%2d\r\n", blk_addr, blk_len);
+  extern void reset_rtc_cnt();
+  reset_rtc_cnt();
   for(int32_t i = 0; i < blk_len; i++)
   {
 	  W25qxx_ReadSector(buf + w25qxx.SectorSize*i, blk_addr+i, 0, 0);
@@ -272,6 +275,8 @@ int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t b
   UNUSED(blk_len);
   // RamDisk ; memcpy(&buffer[blk_addr*STORAGE_BLK_SIZ], buf, blk_len*STORAGE_BLK_SIZ);
   // DEBUG_USB_PRINT("Write: %4d:%2d\r\n", blk_addr, blk_len);
+  extern void reset_rtc_cnt();
+  reset_rtc_cnt();
   for(int32_t i = 0; i < blk_len; i++)
   {
 	  W25qxx_EraseSector(blk_addr+i);

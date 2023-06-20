@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -67,118 +67,201 @@ static void MX_TIM10_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-int _write(int file, char *ptr, int len){
-//    CDC_Transmit_FS((uint8_t *)ptr, len);
-    return (len);
+int _write(int file, char *ptr, int len)
+{
+  //    CDC_Transmit_FS((uint8_t *)ptr, len);
+  return (len);
 }
 
 void display_demo()
 {
-	uint16_t row = 0, col = 0;
+  uint16_t row = 0, col = 0;
 
-	row = 0xFFFF;
-	col = 0x0001;
-	for(int i = 0; i < 9; i++)
-	{
-		ledmatrix_input(row, col);
-		col <<= 1;
-		HAL_Delay(100);
-	}
-	row = 0x0001;
-	col = 0xFFFF;
-	for(int i = 0; i < 9; i++)
-	{
-		ledmatrix_input(row, col);
-		row <<= 1;
-		HAL_Delay(100);
-	}
-	ledmatrix_input(0, 0);
+  row = 0xFFFF;
+  col = 0x0001;
+  for (int i = 0; i < 9; i++)
+  {
+    ledmatrix_input(row, col);
+    col <<= 1;
+    HAL_Delay(100);
+  }
+  row = 0x0001;
+  col = 0xFFFF;
+  for (int i = 0; i < 9; i++)
+  {
+    ledmatrix_input(row, col);
+    row <<= 1;
+    HAL_Delay(100);
+  }
+  ledmatrix_input(0, 0);
 }
 
 void display_demo2()
 {
-	ledmatrix_input((1 << 0), (1 << 0)); HAL_Delay(10); //  LED_L1_1_1 : LED_MAT_0_0 //LED01
-	ledmatrix_input((1 << 0), (1 << 1)); HAL_Delay(10); //  LED_L1_1_2 : LED_MAT_0_1 //LED02
-	ledmatrix_input((1 << 0), (1 << 2)); HAL_Delay(10); //  LED_L1_1_3 : LED_MAT_0_2 //LED03
-	ledmatrix_input((1 << 0), (1 << 3)); HAL_Delay(10); //  LED_L1_1_4 : LED_MAT_0_3 //LED04
-	ledmatrix_input((1 << 0), (1 << 4)); HAL_Delay(10); //  LED_L1_1_5 : LED_MAT_0_4 //LED05
-	ledmatrix_input((1 << 1), (1 << 0)); HAL_Delay(10); //  LED_L1_2_1 : LED_MAT_1_0 //LED10
-	ledmatrix_input((1 << 1), (1 << 1)); HAL_Delay(10); //  LED_L1_2_2 : LED_MAT_1_1 //LED11
-	ledmatrix_input((1 << 1), (1 << 2)); HAL_Delay(10); //  LED_L1_2_3 : LED_MAT_1_2 //LED12
-	ledmatrix_input((1 << 1), (1 << 3)); HAL_Delay(10); //  LED_L1_2_4 : LED_MAT_1_3 //LED13
-	ledmatrix_input((1 << 1), (1 << 4)); HAL_Delay(10); //  LED_L1_2_5 : LED_MAT_1_4 //LED14
-	ledmatrix_input((1 << 2), (1 << 0)); HAL_Delay(10); //  LED_L1_3_1 : LED_MAT_2_0 //LED19
-	ledmatrix_input((1 << 2), (1 << 1)); HAL_Delay(10); //  LED_L1_3_2 : LED_MAT_2_1 //LED20
-	ledmatrix_input((1 << 2), (1 << 2)); HAL_Delay(10); //  LED_L1_3_3 : LED_MAT_2_2 //LED21
-	ledmatrix_input((1 << 2), (1 << 3)); HAL_Delay(10); //  LED_L1_3_4 : LED_MAT_2_3 //LED22
-	ledmatrix_input((1 << 2), (1 << 4)); HAL_Delay(10); //  LED_L1_3_5 : LED_MAT_2_4 //LED23
-	ledmatrix_input((1 << 3), (1 << 0)); HAL_Delay(10); //  LED_L1_4_1 : LED_MAT_3_0 //LED28
-	ledmatrix_input((1 << 3), (1 << 1)); HAL_Delay(10); //  LED_L1_4_2 : LED_MAT_3_1 //LED29
-	ledmatrix_input((1 << 3), (1 << 2)); HAL_Delay(10); //  LED_L1_4_3 : LED_MAT_3_2 //LED30
-	ledmatrix_input((1 << 3), (1 << 3)); HAL_Delay(10); //  LED_L1_4_4 : LED_MAT_3_3 //LED31
-	ledmatrix_input((1 << 3), (1 << 4)); HAL_Delay(10); //  LED_L1_4_5 : LED_MAT_3_4 //LED32
-	ledmatrix_input((1 << 4), (1 << 0)); HAL_Delay(10); //  LED_L1_5_1 : LED_MAT_4_0 //LED37
-	ledmatrix_input((1 << 4), (1 << 1)); HAL_Delay(10); //  LED_L1_5_2 : LED_MAT_4_1 //LED38
-	ledmatrix_input((1 << 4), (1 << 2)); HAL_Delay(10); //  LED_L1_5_3 : LED_MAT_4_2 //LED39
-	ledmatrix_input((1 << 4), (1 << 3)); HAL_Delay(10); //  LED_L1_5_4 : LED_MAT_4_3 //LED40
-	ledmatrix_input((1 << 4), (1 << 4)); HAL_Delay(10); //  LED_L1_5_5 : LED_MAT_4_4 //LED41
-	ledmatrix_input((1 << 0), (1 << 5)); HAL_Delay(10); //  LED_L2_1_1 : LED_MAT_0_5 //LED06
-	ledmatrix_input((1 << 0), (1 << 6)); HAL_Delay(10); //  LED_L2_1_2 : LED_MAT_0_6 //LED07
-	ledmatrix_input((1 << 0), (1 << 7)); HAL_Delay(10); //  LED_L2_1_3 : LED_MAT_0_7 //LED08
-	ledmatrix_input((1 << 0), (1 << 8)); HAL_Delay(10); //  LED_L2_1_4 : LED_MAT_0_8 //LED09
-	ledmatrix_input((1 << 1), (1 << 5)); HAL_Delay(10); //  LED_L2_2_1 : LED_MAT_1_5 //LED15
-	ledmatrix_input((1 << 1), (1 << 6)); HAL_Delay(10); //  LED_L2_2_2 : LED_MAT_1_6 //LED16
-	ledmatrix_input((1 << 1), (1 << 7)); HAL_Delay(10); //  LED_L2_2_3 : LED_MAT_1_7 //LED17
-	ledmatrix_input((1 << 1), (1 << 8)); HAL_Delay(10); //  LED_L2_2_4 : LED_MAT_1_8 //LED18
-	ledmatrix_input((1 << 2), (1 << 5)); HAL_Delay(10); //  LED_L2_3_1 : LED_MAT_2_5 //LED24
-	ledmatrix_input((1 << 2), (1 << 6)); HAL_Delay(10); //  LED_L2_3_2 : LED_MAT_2_6 //LED25
-	ledmatrix_input((1 << 2), (1 << 7)); HAL_Delay(10); //  LED_L2_3_3 : LED_MAT_2_7 //LED26
-	ledmatrix_input((1 << 2), (1 << 8)); HAL_Delay(10); //  LED_L2_3_4 : LED_MAT_2_8 //LED27
-	ledmatrix_input((1 << 3), (1 << 5)); HAL_Delay(10); //  LED_L2_4_1 : LED_MAT_3_5 //LED33
-	ledmatrix_input((1 << 3), (1 << 6)); HAL_Delay(10); //  LED_L2_4_2 : LED_MAT_3_6 //LED34
-	ledmatrix_input((1 << 3), (1 << 7)); HAL_Delay(10); //  LED_L2_4_3 : LED_MAT_3_7 //LED35
-	ledmatrix_input((1 << 3), (1 << 8)); HAL_Delay(10); //  LED_L2_4_4 : LED_MAT_3_8 //LED36
-	ledmatrix_input((1 << 5), (1 << 0)); HAL_Delay(10); //  LED_L3_1_1 : LED_MAT_5_0 // LED46
-	ledmatrix_input((1 << 5), (1 << 1)); HAL_Delay(10); //  LED_L3_1_2 : LED_MAT_5_1 // LED47
-	ledmatrix_input((1 << 5), (1 << 2)); HAL_Delay(10); //  LED_L3_1_3 : LED_MAT_5_2 // LED48
-	ledmatrix_input((1 << 6), (1 << 0)); HAL_Delay(10); //  LED_L3_2_1 : LED_MAT_6_0 // LED55
-	ledmatrix_input((1 << 6), (1 << 1)); HAL_Delay(10); //  LED_L3_2_2 : LED_MAT_6_1 // LED56
-	ledmatrix_input((1 << 6), (1 << 2)); HAL_Delay(10); //  LED_L3_2_3 : LED_MAT_6_2 // LED57
-	ledmatrix_input((1 << 7), (1 << 0)); HAL_Delay(10); //  LED_L3_3_1 : LED_MAT_7_0 // LED64
-	ledmatrix_input((1 << 7), (1 << 1)); HAL_Delay(10); //  LED_L3_3_2 : LED_MAT_7_1 // LED65
-	ledmatrix_input((1 << 7), (1 << 2)); HAL_Delay(10); //  LED_L3_3_3 : LED_MAT_7_2 // LED66
-	ledmatrix_input((1 << 5), (1 << 3)); HAL_Delay(10); //  LED_L4_1_1 : LED_MAT_5_3 // LED49
-	ledmatrix_input((1 << 5), (1 << 4)); HAL_Delay(10); //  LED_L4_1_2 : LED_MAT_5_4 // LED50
-	ledmatrix_input((1 << 6), (1 << 3)); HAL_Delay(10); //  LED_L4_2_1 : LED_MAT_6_3 // LED58
-	ledmatrix_input((1 << 6), (1 << 4)); HAL_Delay(10); //  LED_L4_2_2 : LED_MAT_6_4 // LED59
-	ledmatrix_input((1 << 4), (1 << 5)); HAL_Delay(10); //  LED_L5_01 : LED_MAT_4_5 // LED42
-	ledmatrix_input((1 << 4), (1 << 6)); HAL_Delay(10); //  LED_L5_02 : LED_MAT_4_6 // LED43
-	ledmatrix_input((1 << 4), (1 << 7)); HAL_Delay(10); //  LED_L5_03 : LED_MAT_4_7 // LED44
-	ledmatrix_input((1 << 4), (1 << 8)); HAL_Delay(10); //  LED_L5_04 : LED_MAT_4_8 // LED45
-	ledmatrix_input((1 << 5), (1 << 5)); HAL_Delay(10); //  LED_L5_05 : LED_MAT_5_5 // LED51
-	ledmatrix_input((1 << 5), (1 << 6)); HAL_Delay(10); //  LED_L5_06 : LED_MAT_5_6 // LED52
-	ledmatrix_input((1 << 5), (1 << 7)); HAL_Delay(10); //  LED_L5_07 : LED_MAT_5_7 // LED53
-	ledmatrix_input((1 << 5), (1 << 8)); HAL_Delay(10); //  LED_L5_08 : LED_MAT_5_8 // LED54
-	ledmatrix_input((1 << 6), (1 << 5)); HAL_Delay(10); //  LED_L5_09 : LED_MAT_6_5 // LED60
-	ledmatrix_input((1 << 6), (1 << 6)); HAL_Delay(10); //  LED_L5_10 : LED_MAT_6_6 // LED61
-	ledmatrix_input((1 << 6), (1 << 7)); HAL_Delay(10); //  LED_L5_11 : LED_MAT_6_7 // LED62
-	ledmatrix_input((1 << 6), (1 << 8)); HAL_Delay(10); //  LED_L5_12 : LED_MAT_6_8 // LED63
-	ledmatrix_input((1 << 7), (1 << 5)); HAL_Delay(10); //  LED_L5_13 : LED_MAT_7_5 // LED69
-	ledmatrix_input((1 << 7), (1 << 6)); HAL_Delay(10); //  LED_L5_14 : LED_MAT_7_6 // LED70
-	ledmatrix_input((1 << 7), (1 << 7)); HAL_Delay(10); //  LED_L5_15 : LED_MAT_7_7 // LED71
-	ledmatrix_input((1 << 7), (1 << 8)); HAL_Delay(10); //  LED_L5_16 : LED_MAT_7_8 // LED72
-	ledmatrix_input((1 << 8), (1 << 8)); HAL_Delay(10); //  LED_L6_0 : LED_MAT_8_8 // LED81
-	ledmatrix_input((1 << 8), (1 << 7)); HAL_Delay(10); //  LED_L6_1 : LED_MAT_8_7 // LED80
-	ledmatrix_input((1 << 8), (1 << 6)); HAL_Delay(10); //  LED_L6_2 : LED_MAT_8_6 // LED79
-	ledmatrix_input((1 << 8), (1 << 5)); HAL_Delay(10); //  LED_L6_3 : LED_MAT_8_5 // LED78
-	ledmatrix_input((1 << 8), (1 << 0)); HAL_Delay(10); //  LED_L6_4 : LED_MAT_8_0 // LED73
-	ledmatrix_input((1 << 8), (1 << 1)); HAL_Delay(10); //  LED_L6_5 : LED_MAT_8_1 // LED74
-	ledmatrix_input((1 << 8), (1 << 2)); HAL_Delay(10); //  LED_L6_6 : LED_MAT_8_2 // LED75
-	ledmatrix_input((1 << 8), (1 << 3)); HAL_Delay(10); //  LED_L6_7 : LED_MAT_8_3 // LED76
-	ledmatrix_input((1 << 8), (1 << 4)); HAL_Delay(10); //  LED_L6_8 : LED_MAT_8_4 // LED77
-	ledmatrix_input((1 << 7), (1 << 4)); HAL_Delay(10); //  LED_L6_9 : LED_MAT_7_4 // LED68
-	ledmatrix_input((1 << 7), (1 << 3)); HAL_Delay(10); //  LED_L6_X : LED_MAT_7_3 // LED67
-	ledmatrix_input(0, 0); HAL_Delay(10); //  LED_L6_X : LED_MAT_7_3 // LED67
+  ledmatrix_input((1 << 0), (1 << 0));
+  HAL_Delay(10); //  LED_L1_1_1 : LED_MAT_0_0 //LED01
+  ledmatrix_input((1 << 0), (1 << 1));
+  HAL_Delay(10); //  LED_L1_1_2 : LED_MAT_0_1 //LED02
+  ledmatrix_input((1 << 0), (1 << 2));
+  HAL_Delay(10); //  LED_L1_1_3 : LED_MAT_0_2 //LED03
+  ledmatrix_input((1 << 0), (1 << 3));
+  HAL_Delay(10); //  LED_L1_1_4 : LED_MAT_0_3 //LED04
+  ledmatrix_input((1 << 0), (1 << 4));
+  HAL_Delay(10); //  LED_L1_1_5 : LED_MAT_0_4 //LED05
+  ledmatrix_input((1 << 1), (1 << 0));
+  HAL_Delay(10); //  LED_L1_2_1 : LED_MAT_1_0 //LED10
+  ledmatrix_input((1 << 1), (1 << 1));
+  HAL_Delay(10); //  LED_L1_2_2 : LED_MAT_1_1 //LED11
+  ledmatrix_input((1 << 1), (1 << 2));
+  HAL_Delay(10); //  LED_L1_2_3 : LED_MAT_1_2 //LED12
+  ledmatrix_input((1 << 1), (1 << 3));
+  HAL_Delay(10); //  LED_L1_2_4 : LED_MAT_1_3 //LED13
+  ledmatrix_input((1 << 1), (1 << 4));
+  HAL_Delay(10); //  LED_L1_2_5 : LED_MAT_1_4 //LED14
+  ledmatrix_input((1 << 2), (1 << 0));
+  HAL_Delay(10); //  LED_L1_3_1 : LED_MAT_2_0 //LED19
+  ledmatrix_input((1 << 2), (1 << 1));
+  HAL_Delay(10); //  LED_L1_3_2 : LED_MAT_2_1 //LED20
+  ledmatrix_input((1 << 2), (1 << 2));
+  HAL_Delay(10); //  LED_L1_3_3 : LED_MAT_2_2 //LED21
+  ledmatrix_input((1 << 2), (1 << 3));
+  HAL_Delay(10); //  LED_L1_3_4 : LED_MAT_2_3 //LED22
+  ledmatrix_input((1 << 2), (1 << 4));
+  HAL_Delay(10); //  LED_L1_3_5 : LED_MAT_2_4 //LED23
+  ledmatrix_input((1 << 3), (1 << 0));
+  HAL_Delay(10); //  LED_L1_4_1 : LED_MAT_3_0 //LED28
+  ledmatrix_input((1 << 3), (1 << 1));
+  HAL_Delay(10); //  LED_L1_4_2 : LED_MAT_3_1 //LED29
+  ledmatrix_input((1 << 3), (1 << 2));
+  HAL_Delay(10); //  LED_L1_4_3 : LED_MAT_3_2 //LED30
+  ledmatrix_input((1 << 3), (1 << 3));
+  HAL_Delay(10); //  LED_L1_4_4 : LED_MAT_3_3 //LED31
+  ledmatrix_input((1 << 3), (1 << 4));
+  HAL_Delay(10); //  LED_L1_4_5 : LED_MAT_3_4 //LED32
+  ledmatrix_input((1 << 4), (1 << 0));
+  HAL_Delay(10); //  LED_L1_5_1 : LED_MAT_4_0 //LED37
+  ledmatrix_input((1 << 4), (1 << 1));
+  HAL_Delay(10); //  LED_L1_5_2 : LED_MAT_4_1 //LED38
+  ledmatrix_input((1 << 4), (1 << 2));
+  HAL_Delay(10); //  LED_L1_5_3 : LED_MAT_4_2 //LED39
+  ledmatrix_input((1 << 4), (1 << 3));
+  HAL_Delay(10); //  LED_L1_5_4 : LED_MAT_4_3 //LED40
+  ledmatrix_input((1 << 4), (1 << 4));
+  HAL_Delay(10); //  LED_L1_5_5 : LED_MAT_4_4 //LED41
+  ledmatrix_input((1 << 0), (1 << 5));
+  HAL_Delay(10); //  LED_L2_1_1 : LED_MAT_0_5 //LED06
+  ledmatrix_input((1 << 0), (1 << 6));
+  HAL_Delay(10); //  LED_L2_1_2 : LED_MAT_0_6 //LED07
+  ledmatrix_input((1 << 0), (1 << 7));
+  HAL_Delay(10); //  LED_L2_1_3 : LED_MAT_0_7 //LED08
+  ledmatrix_input((1 << 0), (1 << 8));
+  HAL_Delay(10); //  LED_L2_1_4 : LED_MAT_0_8 //LED09
+  ledmatrix_input((1 << 1), (1 << 5));
+  HAL_Delay(10); //  LED_L2_2_1 : LED_MAT_1_5 //LED15
+  ledmatrix_input((1 << 1), (1 << 6));
+  HAL_Delay(10); //  LED_L2_2_2 : LED_MAT_1_6 //LED16
+  ledmatrix_input((1 << 1), (1 << 7));
+  HAL_Delay(10); //  LED_L2_2_3 : LED_MAT_1_7 //LED17
+  ledmatrix_input((1 << 1), (1 << 8));
+  HAL_Delay(10); //  LED_L2_2_4 : LED_MAT_1_8 //LED18
+  ledmatrix_input((1 << 2), (1 << 5));
+  HAL_Delay(10); //  LED_L2_3_1 : LED_MAT_2_5 //LED24
+  ledmatrix_input((1 << 2), (1 << 6));
+  HAL_Delay(10); //  LED_L2_3_2 : LED_MAT_2_6 //LED25
+  ledmatrix_input((1 << 2), (1 << 7));
+  HAL_Delay(10); //  LED_L2_3_3 : LED_MAT_2_7 //LED26
+  ledmatrix_input((1 << 2), (1 << 8));
+  HAL_Delay(10); //  LED_L2_3_4 : LED_MAT_2_8 //LED27
+  ledmatrix_input((1 << 3), (1 << 5));
+  HAL_Delay(10); //  LED_L2_4_1 : LED_MAT_3_5 //LED33
+  ledmatrix_input((1 << 3), (1 << 6));
+  HAL_Delay(10); //  LED_L2_4_2 : LED_MAT_3_6 //LED34
+  ledmatrix_input((1 << 3), (1 << 7));
+  HAL_Delay(10); //  LED_L2_4_3 : LED_MAT_3_7 //LED35
+  ledmatrix_input((1 << 3), (1 << 8));
+  HAL_Delay(10); //  LED_L2_4_4 : LED_MAT_3_8 //LED36
+  ledmatrix_input((1 << 5), (1 << 0));
+  HAL_Delay(10); //  LED_L3_1_1 : LED_MAT_5_0 // LED46
+  ledmatrix_input((1 << 5), (1 << 1));
+  HAL_Delay(10); //  LED_L3_1_2 : LED_MAT_5_1 // LED47
+  ledmatrix_input((1 << 5), (1 << 2));
+  HAL_Delay(10); //  LED_L3_1_3 : LED_MAT_5_2 // LED48
+  ledmatrix_input((1 << 6), (1 << 0));
+  HAL_Delay(10); //  LED_L3_2_1 : LED_MAT_6_0 // LED55
+  ledmatrix_input((1 << 6), (1 << 1));
+  HAL_Delay(10); //  LED_L3_2_2 : LED_MAT_6_1 // LED56
+  ledmatrix_input((1 << 6), (1 << 2));
+  HAL_Delay(10); //  LED_L3_2_3 : LED_MAT_6_2 // LED57
+  ledmatrix_input((1 << 7), (1 << 0));
+  HAL_Delay(10); //  LED_L3_3_1 : LED_MAT_7_0 // LED64
+  ledmatrix_input((1 << 7), (1 << 1));
+  HAL_Delay(10); //  LED_L3_3_2 : LED_MAT_7_1 // LED65
+  ledmatrix_input((1 << 7), (1 << 2));
+  HAL_Delay(10); //  LED_L3_3_3 : LED_MAT_7_2 // LED66
+  ledmatrix_input((1 << 5), (1 << 3));
+  HAL_Delay(10); //  LED_L4_1_1 : LED_MAT_5_3 // LED49
+  ledmatrix_input((1 << 5), (1 << 4));
+  HAL_Delay(10); //  LED_L4_1_2 : LED_MAT_5_4 // LED50
+  ledmatrix_input((1 << 6), (1 << 3));
+  HAL_Delay(10); //  LED_L4_2_1 : LED_MAT_6_3 // LED58
+  ledmatrix_input((1 << 6), (1 << 4));
+  HAL_Delay(10); //  LED_L4_2_2 : LED_MAT_6_4 // LED59
+  ledmatrix_input((1 << 4), (1 << 5));
+  HAL_Delay(10); //  LED_L5_01 : LED_MAT_4_5 // LED42
+  ledmatrix_input((1 << 4), (1 << 6));
+  HAL_Delay(10); //  LED_L5_02 : LED_MAT_4_6 // LED43
+  ledmatrix_input((1 << 4), (1 << 7));
+  HAL_Delay(10); //  LED_L5_03 : LED_MAT_4_7 // LED44
+  ledmatrix_input((1 << 4), (1 << 8));
+  HAL_Delay(10); //  LED_L5_04 : LED_MAT_4_8 // LED45
+  ledmatrix_input((1 << 5), (1 << 5));
+  HAL_Delay(10); //  LED_L5_05 : LED_MAT_5_5 // LED51
+  ledmatrix_input((1 << 5), (1 << 6));
+  HAL_Delay(10); //  LED_L5_06 : LED_MAT_5_6 // LED52
+  ledmatrix_input((1 << 5), (1 << 7));
+  HAL_Delay(10); //  LED_L5_07 : LED_MAT_5_7 // LED53
+  ledmatrix_input((1 << 5), (1 << 8));
+  HAL_Delay(10); //  LED_L5_08 : LED_MAT_5_8 // LED54
+  ledmatrix_input((1 << 6), (1 << 5));
+  HAL_Delay(10); //  LED_L5_09 : LED_MAT_6_5 // LED60
+  ledmatrix_input((1 << 6), (1 << 6));
+  HAL_Delay(10); //  LED_L5_10 : LED_MAT_6_6 // LED61
+  ledmatrix_input((1 << 6), (1 << 7));
+  HAL_Delay(10); //  LED_L5_11 : LED_MAT_6_7 // LED62
+  ledmatrix_input((1 << 6), (1 << 8));
+  HAL_Delay(10); //  LED_L5_12 : LED_MAT_6_8 // LED63
+  ledmatrix_input((1 << 7), (1 << 5));
+  HAL_Delay(10); //  LED_L5_13 : LED_MAT_7_5 // LED69
+  ledmatrix_input((1 << 7), (1 << 6));
+  HAL_Delay(10); //  LED_L5_14 : LED_MAT_7_6 // LED70
+  ledmatrix_input((1 << 7), (1 << 7));
+  HAL_Delay(10); //  LED_L5_15 : LED_MAT_7_7 // LED71
+  ledmatrix_input((1 << 7), (1 << 8));
+  HAL_Delay(10); //  LED_L5_16 : LED_MAT_7_8 // LED72
+  ledmatrix_input((1 << 8), (1 << 8));
+  HAL_Delay(10); //  LED_L6_0 : LED_MAT_8_8 // LED81
+  ledmatrix_input((1 << 8), (1 << 7));
+  HAL_Delay(10); //  LED_L6_1 : LED_MAT_8_7 // LED80
+  ledmatrix_input((1 << 8), (1 << 6));
+  HAL_Delay(10); //  LED_L6_2 : LED_MAT_8_6 // LED79
+  ledmatrix_input((1 << 8), (1 << 5));
+  HAL_Delay(10); //  LED_L6_3 : LED_MAT_8_5 // LED78
+  ledmatrix_input((1 << 8), (1 << 0));
+  HAL_Delay(10); //  LED_L6_4 : LED_MAT_8_0 // LED73
+  ledmatrix_input((1 << 8), (1 << 1));
+  HAL_Delay(10); //  LED_L6_5 : LED_MAT_8_1 // LED74
+  ledmatrix_input((1 << 8), (1 << 2));
+  HAL_Delay(10); //  LED_L6_6 : LED_MAT_8_2 // LED75
+  ledmatrix_input((1 << 8), (1 << 3));
+  HAL_Delay(10); //  LED_L6_7 : LED_MAT_8_3 // LED76
+  ledmatrix_input((1 << 8), (1 << 4));
+  HAL_Delay(10); //  LED_L6_8 : LED_MAT_8_4 // LED77
+  ledmatrix_input((1 << 7), (1 << 4));
+  HAL_Delay(10); //  LED_L6_9 : LED_MAT_7_4 // LED68
+  ledmatrix_input((1 << 7), (1 << 3));
+  HAL_Delay(10); //  LED_L6_X : LED_MAT_7_3 // LED67
+  ledmatrix_input(0, 0);
+  HAL_Delay(10); //  LED_L6_X : LED_MAT_7_3 // LED67
 }
 
 #include "model/model.h"
@@ -190,177 +273,213 @@ void display_demo2()
 
 uint8_t filter_idx = 0;
 
-void run_model_with_pwm() {
-    // enable interrupt pwm during model calculations
+void run_model_with_pwm()
+{
+  // enable interrupt pwm during model calculations
 
-    run_model_and_set_led_brightness(filter_idx);
+  run_model_and_set_led_brightness(filter_idx);
 
-    // disable interrupt pwm again
+  // disable interrupt pwm again
 }
 
+void reset_input_state()
+{
+  filter_idx = 0;
+  clear_led_brightness();
+  set_led_brightness(1, 1, MAX_PWM_LEVEL);
+  set_led_brightness(1, 2, MAX_PWM_LEVEL);
+  set_led_brightness(2, 2, MAX_PWM_LEVEL);
+  set_led_brightness(3, 1, MAX_PWM_LEVEL);
+  set_led_brightness(3, 2, MAX_PWM_LEVEL);
+  set_led_brightness(3, 3, MAX_PWM_LEVEL);
 
-void reset_input_state() {
-    filter_idx = 0;
-    clear_led_brightness();
-    set_led_brightness(1, 1, MAX_PWM_LEVEL);
-    set_led_brightness(1, 2, MAX_PWM_LEVEL);
-    set_led_brightness(2, 2, MAX_PWM_LEVEL);
-    set_led_brightness(3, 1, MAX_PWM_LEVEL);
-    set_led_brightness(3, 2, MAX_PWM_LEVEL);
-    set_led_brightness(3, 3, MAX_PWM_LEVEL);
-    
-    set_filter_leds(filter_idx);
-    update_pwm_pattern();
-    
-    run_model_with_pwm();
-    update_pwm_pattern();
+  set_filter_leds(filter_idx);
+  update_pwm_pattern();
+
+  run_model_with_pwm();
+  update_pwm_pattern();
 }
 
-
-void sleep_and_reset() {
-    turn_off_leds();
-    go_to_sleep();
-    display_demo();
-    display_demo2();
-    reset_input_state();
+void sleep_and_reset()
+{
+  turn_off_leds();
+  go_to_sleep();
+  display_demo();
+  display_demo2();
+  reset_input_state();
 }
 
 // Ref: https://michaeltien8901.github.io/2020/05/30/Jump-to-Internal-Bootloader-STM32F4.html
-void JumpToBootloader(void) {
-    void (*SysMemBootJump)(void);
+void JumpToBootloader(void)
+{
+  void (*SysMemBootJump)(void);
 
-    /**
-     * Step: Set system memory address.
-     *
-     *       For STM32F429, system memory is on 0x1FFF 0000
-     *       For other families, check AN2606 document table 110 with descriptions of memory addresses
-     */
-    volatile uint32_t addr = 0x1FFF0000;
+  /**
+   * Step: Set system memory address.
+   *
+   *       For STM32F429, system memory is on 0x1FFF 0000
+   *       For other families, check AN2606 document table 110 with descriptions of memory addresses
+   */
+  volatile uint32_t addr = 0x1FFF0000;
 
-    /**
-     * Step: Disable RCC, set it to default (after reset) settings
-     *       Internal clock, no PLL, etc.
-     */
-    HAL_RCC_DeInit();
-    HAL_DeInit(); // add by ctien
+  /**
+   * Step: Disable RCC, set it to default (after reset) settings
+   *       Internal clock, no PLL, etc.
+   */
+  HAL_RCC_DeInit();
+  HAL_DeInit(); // add by ctien
 
-    /**
-     * Step: Disable systick timer and reset it to default values
-     */
-    SysTick->CTRL = 0;
-    SysTick->LOAD = 0;
-    SysTick->VAL = 0;
+  /**
+   * Step: Disable systick timer and reset it to default values
+   */
+  SysTick->CTRL = 0;
+  SysTick->LOAD = 0;
+  SysTick->VAL = 0;
 
-    /**
-     * Step: Disable all interrupts
-     */
+  /**
+   * Step: Disable all interrupts
+   */
   //  __disable_irq(); // changed by ctien
 
-    /**
-     * Step: Remap system memory to address 0x0000 0000 in address space
-     *       For each family registers may be different.
-     *       Check reference manual for each family.
-     *
-     *       For STM32F4xx, MEMRMP register in SYSCFG is used (bits[1:0])
-     *       For STM32F0xx, CFGR1 register in SYSCFG is used (bits[1:0])
-     *       For others, check family reference manual
-     */
-    //Remap by hand... {
+  /**
+   * Step: Remap system memory to address 0x0000 0000 in address space
+   *       For each family registers may be different.
+   *       Check reference manual for each family.
+   *
+   *       For STM32F4xx, MEMRMP register in SYSCFG is used (bits[1:0])
+   *       For STM32F0xx, CFGR1 register in SYSCFG is used (bits[1:0])
+   *       For others, check family reference manual
+   */
+  // Remap by hand... {
 #if defined(STM32F4)
-    SYSCFG->MEMRMP = 0x01;
+  SYSCFG->MEMRMP = 0x01;
 #endif
 #if defined(STM32F0)
-    SYSCFG->CFGR1 = 0x01;
+  SYSCFG->CFGR1 = 0x01;
 #endif
-    //} ...or if you use HAL drivers
-    //__HAL_SYSCFG_REMAPMEMORY_SYSTEMFLASH();    //Call HAL macro to do this for you
+  //} ...or if you use HAL drivers
+  //__HAL_SYSCFG_REMAPMEMORY_SYSTEMFLASH();    //Call HAL macro to do this for you
 
-    /**
-     * Step: Set jump memory location for system memory
-     *       Use address with 4 bytes offset which specifies jump location where program starts
-     */
-    SysMemBootJump = (void (*)(void)) (*((uint32_t *)(addr + 4)));
+  /**
+   * Step: Set jump memory location for system memory
+   *       Use address with 4 bytes offset which specifies jump location where program starts
+   */
+  SysMemBootJump = (void (*)(void))(*((uint32_t *)(addr + 4)));
 
-    /**
-     * Step: Set main stack pointer.
-     *       This step must be done last otherwise local variables in this function
-     *       don't have proper value since stack pointer is located on different position
-     *
-     *       Set direct address location which specifies stack pointer in SRAM location
-     */
-    __set_MSP(*(uint32_t *)addr);
+  /**
+   * Step: Set main stack pointer.
+   *       This step must be done last otherwise local variables in this function
+   *       don't have proper value since stack pointer is located on different position
+   *
+   *       Set direct address location which specifies stack pointer in SRAM location
+   */
+  __set_MSP(*(uint32_t *)addr);
 
-    /**
-     * Step: Actually call our function to jump to set location
-     *       This will start system memory execution
-     */
-    SysMemBootJump();
+  /**
+   * Step: Actually call our function to jump to set location
+   *       This will start system memory execution
+   */
+  SysMemBootJump();
 
-    /**
-     * Step: Connect USB<->UART converter to dedicated USART pins and test
-     *       and test with bootloader works with STM32 STM32 Cube Programmer
-     */
+  /**
+   * Step: Connect USB<->UART converter to dedicated USART pins and test
+   *       and test with bootloader works with STM32 STM32 Cube Programmer
+   */
 }
 
-void handle_buttons(){
-    int8_t pressed = read_buttons();
-    if (pressed == -1) {
-        return;
-    } else if (pressed == FILTER_BUTTON) {
-        if (check_glider()) {
-            run_gol();
-        } else {
-            filter_idx = (filter_idx + 1) % N_FILTERS;
-        }
-        run_model_with_pwm();
-        set_filter_leds(filter_idx);
-        update_pwm_pattern();
-    } else if (pressed == PWR_BUTTON) {
-      // If Long Press, jump to internal bootloader.(for update)
-      uint32_t start_tick = HAL_GetTick();
-      while(!!HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin))
+void handle_buttons()
+{
+  int8_t pressed = read_buttons();
+  if (pressed == -1)
+  {
+    return;
+  }
+  else if (pressed == FILTER_BUTTON)
+  {
+    if (check_glider())
+    {
+      run_gol();
+    }
+    else
+    {
+      filter_idx = (filter_idx + 1) % N_FILTERS;
+    }
+    run_model_with_pwm();
+    set_filter_leds(filter_idx);
+    update_pwm_pattern();
+  }
+  else if (pressed == PWR_BUTTON)
+  {
+    // If Long Press, jump to internal bootloader.(for update)
+    uint32_t start_tick = HAL_GetTick();
+    while (!!HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin))
+    {
+      if (HAL_GetTick() > (start_tick + 5000))
       {
-        if (HAL_GetTick() > (start_tick + 5000))
-        {
-            JumpToBootloader();
-        }
+        JumpToBootloader();
       }
-
-        sleep_and_reset();
-    } else {
-        uint8_t row = pressed / 5;
-        uint8_t col = pressed % 5;
-
-        set_led_brightness(row, col,
-            get_led_on(row, col) ? 0 : MAX_PWM_LEVEL
-        );
-
-        run_model_with_pwm();
-        update_pwm_pattern();
     }
-}
 
-void main_loop() {
-    
-    while (1) {
-        run_pwm_cycle();
-        handle_buttons();
-    }
-}
-
-void main_entry()
-{   
-    
-    turn_off_leds();
-    
-    /* shift register output enable */
-    
-    init_pwm_data();
-    
-    // sleep
     sleep_and_reset();
-    
-    main_loop();
+  }
+  else
+  {
+    uint8_t row = pressed / 5;
+    uint8_t col = pressed % 5;
+
+    set_led_brightness(row, col,
+                       get_led_on(row, col) ? 0 : MAX_PWM_LEVEL);
+
+    run_model_with_pwm();
+    update_pwm_pattern();
+  }
+}
+
+void main_loop()
+{
+
+  while (1)
+  {
+    run_pwm_cycle();
+    handle_buttons();
+    if(check_rtc_elapsed())
+    {
+      sleep_and_reset();
+    }
+  }
+}
+
+void main_loop_state_machine()
+{
+  extern void run_pwm_cycle_state_machine();
+  run_pwm_cycle_state_machine();
+  if(check_rtc_elapsed())
+  {
+    sleep_and_reset();
+  }
+}
+void main_entry()
+{
+
+  turn_off_leds();
+
+  /* shift register output enable */
+
+  init_pwm_data();
+
+  display_demo();
+  display_demo2();
+  reset_input_state();
+
+  //    main_loop();
+  HAL_TIM_Base_Start_IT(&htim5);
+  while (1)
+    ;
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	turn_off_leds();
 }
 /* USER CODE END 0 */
 
@@ -404,27 +523,7 @@ int main(void)
   ledmatrix_turnon();
   HAL_Delay(1000);
 
-//  HAL_Delay(5000);
-//
-//  W25qxx_Init();
-//  uint8_t rdata[8] = {0,};
-//  uint8_t wdata[8] = {11,2,3,4,5,6,7};
-//  W25qxx_ReadBytes(rdata, 0, 8);
-//  for(int i = 0; i < sizeof(rdata); i++)
-//  {
-//	  printf("%02X ", rdata[i]);
-//  } printf("\r\n");
-//  W25qxx_WriteByte(wdata, 1);
-//  W25qxx_ReadBytes(rdata, 0, 8);
-//    for(int i = 0; i < sizeof(rdata); i++)
-//    {
-//  	  printf("%02X ", rdata[i]);
-//    } printf("\r\n");
-
-
-
   main_entry();
-
 
   /* USER CODE END 2 */
 
@@ -587,9 +686,9 @@ static void MX_TIM5_Init(void)
 
   /* USER CODE END TIM5_Init 1 */
   htim5.Instance = TIM5;
-  htim5.Init.Prescaler = 0;
+  htim5.Init.Prescaler = 64-1;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim5.Init.Period = 0xFFFFFF;
+  htim5.Init.Period = 40-1;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
@@ -631,9 +730,9 @@ static void MX_TIM10_Init(void)
 
   /* USER CODE END TIM10_Init 1 */
   htim10.Instance = TIM10;
-  htim10.Init.Prescaler = 0;
+  htim10.Init.Prescaler = 64-1;
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim10.Init.Period = 0xFFFF;
+  htim10.Init.Period = 3200;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
@@ -641,10 +740,6 @@ static void MX_TIM10_Init(void)
     Error_Handler();
   }
   if (HAL_TIM_PWM_Init(&htim10) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_OnePulse_Init(&htim10, TIM_OPMODE_SINGLE) != HAL_OK)
   {
     Error_Handler();
   }
@@ -750,6 +845,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -775,7 +874,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  if (htim->Instance == TIM5)
+  {
+    main_loop_state_machine();
+  }
   /* USER CODE END Callback 1 */
 }
 

@@ -130,7 +130,7 @@ void run_pwm_cycle() {
         for (uint8_t row=0; row <= 8; row++){
             ledmatrix_input(row_shift_bytes[row], col_shift_bytes[9 * pwm_idx + row]);
             //HAL_Delay(50);
-            _delay_us(1);
+            _delay_us(10);
             // ledmatrix_turnoff();
         }
     }
@@ -138,4 +138,30 @@ void run_pwm_cycle() {
     // turn off leds (otherwise last col is brighter
     // because of button scan time)
     turn_off_leds();
+}
+
+void run_pwm_cycle_state_machine() {
+  /* Run a full PWM cycle: PWM_LEVELS * 9 columns different output states */
+
+  // turn on single leds
+  static uint8_t pwm_idx=0;
+	static uint8_t row=0;
+	{
+		ledmatrix_input(row_shift_bytes[row], col_shift_bytes[9 * pwm_idx + row]);
+		//HAL_Delay(50);
+		// ledmatrix_turnoff();
+	}
+	row++;
+	if(!(row <= 8))
+	{
+		row = 0;
+		pwm_idx++;
+	}
+    if (!(pwm_idx < PWM_LEVELS))
+    {
+    	turn_off_leds();
+    	pwm_idx = 0;
+    	extern void handle_buttons();
+    	handle_buttons();
+    }
 }

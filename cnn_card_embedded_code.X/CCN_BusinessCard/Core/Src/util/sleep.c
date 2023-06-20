@@ -9,7 +9,7 @@
 
 void _delay_us(uint32_t us)
 {
-    uint32_t us_tick =  SystemCoreClock/1000000;
+    uint32_t us_tick =  SystemCoreClock/1000000/3;
 	for(volatile int i = 0; i < us; i++)
 	{
 		for(volatile int j = 0; j < us_tick; j++)
@@ -28,6 +28,10 @@ void reset_rtc_cnt() {
     /* reset RTC (auto shutdown counter) */
     LastUpdate = HAL_GetTick();
 }
+int check_rtc_elapsed()
+{
+    return (HAL_GetTick() - LastUpdate) > 1000*60*5;
+}
 
 void go_to_sleep() {
     /* Go to sleep, wakeup on PWR button press
@@ -35,12 +39,16 @@ void go_to_sleep() {
      * with BOTHEDGES or LEVEL interrupts, so we have to wait until the
      * button is released (and no longer bouncing) before going to sleep.
      */
-//    _delay_ms(50);
-//    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-//    sleep_enable();
-//    sleep_cpu();
-//    turn_off_leds();
+    extern TIM_HandleTypeDef htim5;
+    extern TIM_HandleTypeDef htim11;
     // turn off individual leds
-//    _delay_ms(50);
-//    reset_rtc_cnt();
+   turn_off_leds();
+   //_delay_ms(50);
+   HAL_TIM_Base_Stop_IT(&htim11);
+   HAL_TIM_Base_Stop_IT(&htim5);
+   HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+   HAL_TIM_Base_Start_IT(&htim11);
+   HAL_TIM_Base_Start_IT(&htim5);
+   //_delay_ms(50);
+   reset_rtc_cnt();
 }

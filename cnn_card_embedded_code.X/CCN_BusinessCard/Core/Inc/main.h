@@ -101,8 +101,10 @@ void Error_Handler(void);
 #define COL_5_GPIO_Port GPIOB
 #define B0_Pin GPIO_PIN_8
 #define B0_GPIO_Port GPIOB
+#define B0_EXTI_IRQn EXTI9_5_IRQn
 #define B1_Pin GPIO_PIN_9
 #define B1_GPIO_Port GPIOB
+#define B1_EXTI_IRQn EXTI9_5_IRQn
 
 /* USER CODE BEGIN Private defines */
 #define FLASH_CS_GPIO_Port SPI1_CS_GPIO_Port
